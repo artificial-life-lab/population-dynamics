@@ -1,6 +1,6 @@
 # Population dynamics
 
-Dynamic field theory approach to artificial life
+Library to conduct experiements on population dynamics.
 
 ## Installation
 
