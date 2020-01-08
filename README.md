@@ -1,4 +1,4 @@
-# Neural field dynamics
+# Population dynamics
 
 Dynamic field theory approach to artificial life
 
