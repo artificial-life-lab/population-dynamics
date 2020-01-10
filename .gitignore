@@ -109,3 +109,6 @@ results/
 data/
 *.err
 *.out
+
+# Visual Studio Code Auxiliaries
+.vscode/
