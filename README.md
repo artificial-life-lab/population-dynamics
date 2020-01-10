@@ -14,7 +14,11 @@ conda env create -f environment.yml
 ```
 source activate population-dynamics
 ```
-3. Install `causal` as a package within environment
+3. Install `causal` as a package within the environment
 ```
 python install_causal.py develop
+```
+4. To setup all the log and results folders, run
+```
+bash setup.sh
 ```
