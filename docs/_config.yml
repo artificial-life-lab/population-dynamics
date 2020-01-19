@@ -3,7 +3,7 @@ title: Population Dynamics
 title_suffix: Library to conduct experiments in population dynamics.
 plugins:
   - jekyll-relative-links
-baseurl: quiet-minds/population-dynamics
+baseurl: /population-dynamics
 
 titles_from_headings:
   enabled:     false
