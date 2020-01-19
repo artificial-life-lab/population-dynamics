@@ -2,7 +2,7 @@
 
 Library to conduct experiements on population dynamics.
 
-![Lotka-Volterra predator-prey system](docs/graphics/predator_prey.png)
+![Lotka-Volterra predator-prey system](./graphics/predator_prey.png)
 
 ## Installation
 
