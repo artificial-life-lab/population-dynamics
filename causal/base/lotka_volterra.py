@@ -3,6 +3,7 @@
 
 import argparse, os
 import logging
+import h5py, datetime
 import matplotlib.pyplot as plt
 
 from causal.config import LV_PARAMS, RESULTS_DIR, LOG_DIR
@@ -58,6 +59,13 @@ class LotkaVolterra():
 
         return new_prey_population, new_predator_population
 
+    def _save_population(self):
+        filename = RESULTS_DIR+'{}_populations.h5'.format(datetime.date.today().strftime("%Y%m%d"))
+        hf = h5py.File(filename, 'w')
+        hf.create_dataset('prey_pop', data=self.predator_list)
+        hf.create_dataset('pred_pop', data=self.predator_list)
+        hf.close()
+
     def _solve(self):
         current_prey, current_predators = self.prey_population, self.predator_population
         print('Computing population over time...')
@@ -73,7 +81,8 @@ class LotkaVolterra():
         plt.ylabel('Population')
         plt.xlabel('Time')
         if save:
-            plt.savefig(RESULTS_DIR+filename+'.svg', format='svg', transparent=False, bbox_inches='tight')
+            plt.savefig(RESULTS_DIR+'{}_'.format(datetime.date.today().strftime("%Y%m%d"))+filename+'.svg',
+                        format='svg', transparent=False, bbox_inches='tight')
         else:
             plt.show()
         plt.close()
@@ -82,6 +91,7 @@ def main():
     logging.info('Lotka-Volterra predator prey dynamics with 4th order Runge-Kutta method')
     m = LotkaVolterra()
     m._solve()
+    m._save_population()
     m.plot_population_over_time()
 
 if __name__ == '__main__':

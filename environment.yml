@@ -9,3 +9,4 @@ dependencies:
   - conda-forge::matplotlib==3.1.1
   - pip:
     - setuptools==41.3.0
+    - h5py==2.10.0
