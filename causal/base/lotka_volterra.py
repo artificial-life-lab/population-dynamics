@@ -1,12 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import argparse, os
+import argparse
+import os
 import logging
-import h5py, datetime
+import datetime
+import h5py
 import matplotlib.pyplot as plt
 
-from causal.config import LV_PARAMS, RESULTS_DIR, LOG_DIR
+from causal.config import LV_PARAMS, RESULTS_DIR
+from causal.utils.log_config import log_LV_params
 
 
 class LotkaVolterra():
@@ -68,9 +71,10 @@ class LotkaVolterra():
 
     def _solve(self):
         current_prey, current_predators = self.prey_population, self.predator_population
-        print('Computing population over time...')
-        for _ in range(self.max_iterations):
+        logging.info('Computing population over time...')
+        for gen_idx in range(self.max_iterations):
             current_prey, current_predators = self.runge_kutta_update(current_prey, current_predators)
+            logging.info('Gen: %d | Prey population: %d | Predator population: %d', gen_idx, current_prey, current_predators)
         print('Done!')
     
     def plot_population_over_time(self, save=True, filename='predator_prey'):
@@ -88,29 +92,33 @@ class LotkaVolterra():
         plt.close()
 
 def main():
-    logging.info('Lotka-Volterra predator prey dynamics with 4th order Runge-Kutta method')
+    logging.info('Lotka-Volterra predator-prey dynamics with 4th order Runge-Kutta method')
     m = LotkaVolterra()
+    log_LV_params()
     m._solve()
     m._save_population()
     m.plot_population_over_time()
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-log', '--logfile', help='Where to place the logfile')
-    parser.add_argument('-out', '--outdir', help='Where to place the results')
-    args = parser.parse_args()
+    PARSER = argparse.ArgumentParser()
+    PARSER.add_argument('-log', '--logfile', help='name of the logfile', default='log')
+    PARSER.add_argument('-out', '--outdir', help='Where to place the results')
+    ARGS = PARSER.parse_args()
 
-    if args.logfile:
-        if os.path.exists(LOG_DIR+args.logfile):
-            os.remove(LOG_DIR+args.logfile)
-        logging.basicConfig(level=logging.INFO, filename=LOG_DIR+args.logfile) # log to file
+    if ARGS.outdir:
+        RESULTS_DIR = RESULTS_DIR+'/{}_{}/'.format(datetime.datetime.now().strftime("%Y%h%d_%H:%M:%S"), str(ARGS.outdir))
     else:
-        logging.basicConfig(level=logging.INFO) # log to stdout
+        RESULTS_DIR = RESULTS_DIR+'/{}/'.format(datetime.datetime.now().strftime("%Y%h%d_%H:%M:%S"))
+    if not os.path.exists(RESULTS_DIR):
+        os.makedirs(RESULTS_DIR)
 
-    if args.outdir:
-        directory = RESULTS_DIR+str(args.outdir)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        RESULTS_DIR = directory+'/'
+    LOG_FILE = RESULTS_DIR+'{}.txt'.format(ARGS.logfile) # write logg to this file
+    logging.basicConfig(
+        level=logging.INFO,
+        handlers=[
+            logging.FileHandler(LOG_FILE),
+            logging.StreamHandler()
+        ]
+    )
 
     main()
