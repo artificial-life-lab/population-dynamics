@@ -110,7 +110,7 @@ if __name__ == '__main__':
     if not os.path.exists(RESULTS_DIR):
         os.makedirs(RESULTS_DIR)
 
-    LOG_FILE = RESULTS_DIR+'/{}.txt'.format(ARGS.logfile) # write logg to this file
+    LOG_FILE = os.path.join(RESULTS_DIR, f"{ARGS.logfile}.txt")     # write logg to this file
     logging.basicConfig(
         level=logging.INFO,
         handlers=[

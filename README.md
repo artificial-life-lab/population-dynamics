@@ -21,7 +21,7 @@ conda env create -f environment.yml
 3. Activate the environment
 
 ```(bash)
-source activate population-dynamics
+conda activate population-dynamics
 ```
 
 4. Install `causal` as a package within the environment
