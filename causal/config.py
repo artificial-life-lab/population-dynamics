@@ -20,4 +20,4 @@ LV_PARAMS = {
 
 # PATHS
 PROJECT_PATH = osp.abspath(osp.join(osp.dirname(__file__), '..'))
-RESULTS_DIR = PROJECT_PATH + '/results/'
+RESULTS_DIR = osp.join(PROJECT_PATH, 'results')

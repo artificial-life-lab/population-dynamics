@@ -63,7 +63,7 @@ class LotkaVolterra():
         return new_prey_population, new_predator_population
 
     def _save_population(self):
-        filename = RESULTS_DIR+'{}_populations.h5'.format(datetime.date.today().strftime("%Y%m%d"))
+        filename = os.path.join(RESULTS_DIR, 'populations.h5')
         hf = h5py.File(filename, 'w')
         hf.create_dataset('prey_pop', data=self.predator_list)
         hf.create_dataset('pred_pop', data=self.predator_list)
@@ -85,7 +85,7 @@ class LotkaVolterra():
         plt.ylabel('Population')
         plt.xlabel('Time')
         if save:
-            plt.savefig(RESULTS_DIR+'{}_'.format(datetime.date.today().strftime("%Y%m%d"))+filename+'.svg',
+            plt.savefig(os.path.join(RESULTS_DIR, f"{filename}.svg"),
                         format='svg', transparent=False, bbox_inches='tight')
         else:
             plt.show()
@@ -102,17 +102,15 @@ def main():
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser()
     PARSER.add_argument('-log', '--logfile', help='name of the logfile', default='log')
-    PARSER.add_argument('-out', '--outdir', help='Where to place the results')
+    PARSER.add_argument('-out', '--outdir', help='Where to place the results', default='lv_simulation')
     ARGS = PARSER.parse_args()
 
-    if ARGS.outdir:
-        RESULTS_DIR = RESULTS_DIR+'/{}_{}/'.format(datetime.datetime.now().strftime("%Y%h%d_%H:%M:%S"), str(ARGS.outdir))
-    else:
-        RESULTS_DIR = RESULTS_DIR+'/{}/'.format(datetime.datetime.now().strftime("%Y%h%d_%H:%M:%S"))
+    RESULTS_DIR = os.path.join(RESULTS_DIR, '{}_{}'.format(datetime.datetime.now().strftime("%Y%h%d_%H_%M_%S"), str(ARGS.outdir)))
+
     if not os.path.exists(RESULTS_DIR):
         os.makedirs(RESULTS_DIR)
 
-    LOG_FILE = RESULTS_DIR+'{}.txt'.format(ARGS.logfile) # write logg to this file
+    LOG_FILE = RESULTS_DIR+'/{}.txt'.format(ARGS.logfile) # write logg to this file
     logging.basicConfig(
         level=logging.INFO,
         handlers=[
