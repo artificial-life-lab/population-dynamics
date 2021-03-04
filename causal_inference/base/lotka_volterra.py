@@ -8,8 +8,8 @@ import datetime
 import h5py
 import matplotlib.pyplot as plt
 
-from causal.config import LV_PARAMS, RESULTS_DIR
-from causal.utils.log_config import log_LV_params
+from causal_inference.config import LV_PARAMS, RESULTS_DIR
+from causal_inference.utils.log_config import log_LV_params
 
 
 class LotkaVolterra():

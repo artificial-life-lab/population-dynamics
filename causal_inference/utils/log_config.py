@@ -4,7 +4,7 @@
 Logs experimental configuration in the log file.
 '''
 import logging
-import causal.config as CF
+import causal_inference.config as CF
 
 def log_separator_line():
     '''
