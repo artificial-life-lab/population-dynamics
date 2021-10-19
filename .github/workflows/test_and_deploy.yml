@@ -87,7 +87,7 @@ jobs:
       - name: Build and publish
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: pypi-AgEIcHlwaS5vcmcCJGJmZTlmZTA3LTljNWYtNGUzNi1iOTU1LTQ5ODFiNGFmYTJlZQACVXsicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJjYXVzYWwtaW5mZXJlbmNlLXBvcHVsYXRpb24tZHluYW1pY3MiXX0sICJ2ZXJzaW9uIjogMX0AAAYgQf2Ep0aG4Sw3UiDCgmAORYY6NPAtxkrzDNubm7omyKU
+          TWINE_PASSWORD: ${{ secrets.TWINE_API_KEY }}
         run: |
           git tag
           python setup.py sdist bdist_wheel
