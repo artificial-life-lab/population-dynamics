@@ -39,4 +39,11 @@ setup(
     install_requires=requirements,
     use_scm_version={"local_scheme": local_scheme},
     setup_requires=['setuptools_scm'],
+    # PyPI package information.
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+    ],
 )
