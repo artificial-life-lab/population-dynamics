@@ -3,13 +3,8 @@
 '''
 Setup script for the repository.
 '''
-import os
-import codecs
 from setuptools import find_packages, setup, Distribution
 
-def read(fname):
-    file_path = os.path.join(os.path.dirname(__file__), fname)
-    return codecs.open(file_path, encoding='utf-8').read()
 
 requirements = []
 with open('requirements.txt') as f:
@@ -24,6 +19,27 @@ with open('requirements.txt') as f:
 def local_scheme(version):
     return ""
 
+long_description = """
+
+# Causal-inference-population-dynamics
+
+Causal-inference-population-dynamics is a library to simulate and infer population dynamics models.
+
+The currently imlemented population dynamics models are
++ Lotka-Volterra model
+
+## Running the code
+
+You can run the simulator directly from terminal by running
+
+```(bash)
+python causal/base/lotka_volterra.py
+```
+
+The simulation statistics will be saved in the `repo/results` directory.
+
+"""
+
 setup(
     name = 'causal-inference-population-dynamics',
     author='Pranjal Dhole',
@@ -31,7 +47,7 @@ setup(
     license='MIT',
     url='https://github.com/artificial-life-lab/population-dynamics',
     description='Library to conduct experiments in population dynamics.',
-    long_description=read('README.md'),
+    long_description=long_description,
     long_description_content_type='text/markdown',
     distclass = Distribution,
     packages = find_packages(),

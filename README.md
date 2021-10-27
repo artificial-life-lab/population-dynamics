@@ -2,7 +2,6 @@
 
 [![License](https://img.shields.io/pypi/l/causal-inference-population-dynamics.svg?color=green)](https://github.com/artificial-life-lab/population-dynamics/raw/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/causal-inference-population-dynamics.svg?color=green)](https://pypi.org/project/causal-inference-population-dynamics)
-[![Python Version](https://img.shields.io/pypi/pyversions/causal-inference-population-dynamics.svg?color=green)](https://python.org)
 [![codecov](https://codecov.io/gh/artificial-life-lab/population-dynamics/branch/master/graph/badge.svg?token=3SHJIARPOG)](https://codecov.io/gh/artificial-life-lab/population-dynamics)
 
 Library to conduct experiements on population dynamics.
