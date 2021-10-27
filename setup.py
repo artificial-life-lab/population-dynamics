@@ -53,7 +53,7 @@ setup(
     packages = find_packages(),
     python_requires='>=3.7',
     install_requires=requirements,
-    use_scm_version={"local_scheme": local_scheme},
+    version='1.0.2',
     setup_requires=['setuptools_scm'],
     # PyPI package information.
     classifiers=[
