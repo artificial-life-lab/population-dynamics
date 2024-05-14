@@ -35,7 +35,6 @@ pip install --upgrade pip setuptools
 - install dependencies with
 ```bash
 pip install -r requirements.txt
-``` 
 ```
 
 - Install `causal_inference` as a package within the environment
