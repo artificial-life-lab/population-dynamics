@@ -65,7 +65,7 @@ class LotkaVolterra():
     def _save_population(self):
         filename = os.path.join(RESULTS_DIR, 'populations.h5')
         hf = h5py.File(filename, 'w')
-        hf.create_dataset('prey_pop', data=self.predator_list)
+        hf.create_dataset('prey_pop', data=self.prey_list)
         hf.create_dataset('pred_pop', data=self.predator_list)
         hf.close()
 
