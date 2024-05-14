@@ -10,25 +10,35 @@ Library to conduct experiements on population dynamics.
 
 ## Installation
 
-1. To generate required log and results directories, run
+- To generate required log and results directories, run
 
 ```(bash)
 bash init.sh
 ```
 
-2. Create conda environment
-
-```(bash)
-conda env create -f environment.yml
+- Create virtual environment
+```bash
+mkdir -p ~/venvs/population-dynamics
+python3 -m venv ~/venvs/population-dynamics
 ```
 
-3. Activate the environment
-
-```(bash)
-conda activate population-dynamics
+- Activate virtual environment
+```bash
+source ~/venvs/population-dynamics/bin/activate
 ```
 
-4. Install `causal` as a package within the environment
+- Upgrade pip and setuptools
+```bash
+pip install --upgrade pip setuptools
+```
+
+- install dependencies with
+```bash
+pip install -r requirements.txt
+``` 
+```
+
+- Install `causal_inference` as a package within the environment
 
 ```(bash)
 python setup.py develop
@@ -36,14 +46,14 @@ python setup.py develop
 
 ## Running the Lotka-Volterra simulation
 
-- The Lotka-Volterra simulator class exists in `repo/causal/base/lotka_volterra.py`.
-- The Lotka-Volterra simulation parameters are fetched from `repo/causal/config.py`.
+- The Lotka-Volterra simulator class exists in `repo/causal_inference/base/lv_simulator.py`.
+- The Lotka-Volterra simulation parameters are fetched from `repo/causal_inference/config.py`.
 You can edit the `config.py` file directly to play around with the parameter values.
 
 - You can run the simulator directly from terminal by running
 
 ```(bash)
-python causal/base/lotka_volterra.py
+python causal_inference/base/lv_simulator.py
 ```
 
 - The simulation statistics will be saved in the `repo/results` directory.
