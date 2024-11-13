@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import logging
-from math import ceil
 from causal_inference.base.lv_system import LotkaVolterra
 
 class RungeKuttaSolver(LotkaVolterra):
@@ -11,7 +10,6 @@ class RungeKuttaSolver(LotkaVolterra):
     def __init__(self):
         super().__init__()
         logging.info('Solving Lotka-Volterra predator-prey dynamics with 4th order Runge-Kutta method')
-        self.time_stamp = [self.time]
         self.prey_list = [self.prey_population]
         self.predator_list = [self.predator_population]
 
@@ -22,8 +20,6 @@ class RungeKuttaSolver(LotkaVolterra):
         return - self.C * current_predators + self.D * current_prey * current_predators
     
     def runge_kutta_update(self, current_prey, current_predators):
-        self.time = self.time + self.step_size
-        self.time_stamp.append(self.time)
 
         k1_prey = self.step_size * self.compute_prey_rate(current_prey, current_predators)
         k1_pred = self.step_size * self.compute_predator_rate(current_prey, current_predators)
@@ -46,11 +42,17 @@ class RungeKuttaSolver(LotkaVolterra):
         return new_prey_population, new_predator_population
     
     def _solve(self):
+        '''
+        Runge-Kutta solver that returns the predator and prey populations at each time step in time series.
+        '''
+        #initial population
         current_prey, current_predators = self.prey_population, self.predator_population
-        logging.info('Computing population over time...')
-        for gen_idx in range(ceil(self.max_iterations/self.step_size)):
+
+        logging.info(f'Computing population over {self.total_time} generation with step size of {self.step_size}...')
+
+        for step_idx in self.time_stamps[1:]:
             current_prey, current_predators = self.runge_kutta_update(current_prey, current_predators)
-            msg= f'Gen: {gen_idx} | Prey population: {current_prey} | Predator population: {current_predators}'
+            msg= f'Step: {step_idx} | Prey population: {current_prey} | Predator population: {current_predators}'
             logging.info(msg)
         print('Done!')
         return self.prey_list, self.predator_list
