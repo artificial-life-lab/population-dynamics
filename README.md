@@ -10,13 +10,15 @@ Library to conduct experiements on population dynamics.
 
 ## Installation
 
-- To generate required log and results directories, run
+- To generate required log and results directories and setup virtual environment, run
 
 ```(bash)
 bash init.sh
 ```
+This step needs to be performed only once to set up your work space.
 
-- Create virtual environment
+- Alternatively, you can create virtual environment manually as follows:
+
 ```bash
 mkdir -p ~/venvs/population-dynamics
 python3 -m venv ~/venvs/population-dynamics
@@ -36,8 +38,10 @@ pip install --upgrade pip setuptools
 ```bash
 pip install -r requirements.txt
 ```
+Alternatively, there exists `requirements_lock.txt` to get a version of the environment that is tested by us in terms of dependencies. The downside of using this file to installing dependencies is that you might not get all the latest version of packages.
+In case, if either or the files do not setup the environment successfully, please raise an issue.
 
-- Install `causal_inference` as a package within the environment
+- Install `causal_inference` as a package within the environment in development setting if you want to use the repo in the development mode by running the following line
 
 ```(bash)
 python setup.py develop
@@ -54,5 +58,6 @@ You can edit the `config.py` file directly to play around with the parameter val
 ```(bash)
 python causal_inference/base/lv_simulator.py
 ```
+This will take all the default arguments and configuration to run a simulation instance of lotka-volterra population dynamics.
 
-- The simulation statistics will be saved in the `repo/results` directory.
+- The simulation statistics will be saved in the `repo/results` directory by default.
