@@ -6,37 +6,12 @@ import os
 import logging
 import datetime
 
-import h5py
-import matplotlib.pyplot as plt
-
 from causal_inference.config import RESULTS_DIR
 from causal_inference.utils.log_config import log_LV_params
 from causal_inference.base.ode_solver import ODE_solver
 from causal_inference.base.runge_kutta_solver import RungeKuttaSolver
-
-def _save_population(prey_list, predator_list):
-    filename = os.path.join(RESULTS_DIR, 'populations.h5')
-    hf = h5py.File(filename, 'w')
-    hf.create_dataset('prey_pop', data=prey_list)
-    hf.create_dataset('pred_pop', data=predator_list)
-    hf.close()
-
-def plot_population_over_time(prey_list, predator_list, save=True, filename='predator_prey'):
-    fig = plt.figure(figsize=(15, 5))
-    ax = fig.add_subplot(2, 1, 1)
-    PreyLine, = plt.plot(prey_list , color='g')
-    PredatorsLine, = plt.plot(predator_list, color='r')
-    ax.set_xscale('log')
-
-    plt.legend([PreyLine, PredatorsLine], ['Prey', 'Predators'])
-    plt.ylabel('Population')
-    plt.xlabel('Time')
-    if save:
-        plt.savefig(os.path.join(RESULTS_DIR, f"{filename}.svg"),
-                    format='svg', transparent=False, bbox_inches='tight')
-    else:
-        plt.show()
-    plt.close()
+from causal_inference.utils.writer import _save_population
+from causal_inference.utils.visualisations import plot_population_over_time
 
 def get_solver(method):
     '''
@@ -50,15 +25,15 @@ def get_solver(method):
         raise AssertionError(f'{method} is not implemented!')
     return solver
 
-def main(method):
+def main(method, results_dir):
     '''
     Main function that solves LV system.
     '''
     log_LV_params()
     solver = get_solver(method)
     prey_list, predator_list = solver._solve()
-    _save_population(prey_list, predator_list)
-    plot_population_over_time(prey_list, predator_list)
+    _save_population(prey_list, predator_list, solver.time_stamps, results_dir)
+    plot_population_over_time(prey_list, predator_list, solver.time_stamps, results_dir)
 
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser()
@@ -68,12 +43,12 @@ if __name__ == '__main__':
                         choices=['RK4', 'ODE'], default='RK4')
     ARGS = PARSER.parse_args()
 
-    RESULTS_DIR = os.path.join(RESULTS_DIR, '{}_{}'.format(datetime.datetime.now().strftime("%Y%h%d_%H_%M_%S"), str(ARGS.outdir)))
+    results_dir = os.path.join(RESULTS_DIR, '{}_{}'.format(datetime.datetime.now().strftime("%Y%h%d_%H_%M_%S"), str(ARGS.outdir)))
 
-    if not os.path.exists(RESULTS_DIR):
-        os.makedirs(RESULTS_DIR)
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
 
-    LOG_FILE = os.path.join(RESULTS_DIR, f"{ARGS.logfile}.txt")     # write logg to this file
+    LOG_FILE = os.path.join(results_dir, f"{ARGS.logfile}.txt")     # write logg to this file
     logging.basicConfig(
         level=logging.INFO,
         handlers=[
@@ -82,4 +57,4 @@ if __name__ == '__main__':
         ]
     )
     solver = ARGS.solver
-    main(solver)
+    main(solver, results_dir)
