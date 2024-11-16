@@ -7,15 +7,15 @@ import os.path as osp
 
 # Lotka-Volterra Parameters
 LV_PARAMS = {
-'A' : 10.0,
-'B' : 7.0,
-'C' : 3.0,
-'D' : 5.0,
+'A' : 1.0,
+'B' : 0.1,
+'C' : 0.3,
+'D' : 0.4,
 'STEP_SIZE' : 0.01,
-'TOTAL_TIME' : 20,
-'INITIAL_PREY_POPULATION' : 60,
+'TOTAL_TIME' : 10,
+'INITIAL_PREY_POPULATION' : 40,
 'INITIAL_PREDATOR_POPULATION' : 25,
-'MAX_ITERATIONS' : 200
+'MAX_ITERATIONS' : 100
 }
 
 # PATHS

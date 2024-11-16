@@ -61,3 +61,9 @@ python causal_inference/base/lv_simulator.py
 This will take all the default arguments and configuration to run a simulation instance of lotka-volterra population dynamics.
 
 - The simulation statistics will be saved in the `repo/results` directory by default.
+
+## Simulation and inference
+
+- The simulation and inference methods are separately implemented in `repo/causal_inference/base/lotka_volterra/lv_system.py`.
+- Currently, this inference method is experimental and may not always converge to correct optimal parameters.
+- More work is needed to find a good approximation schema to initiate the parameters of the LV-system.
