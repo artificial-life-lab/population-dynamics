@@ -25,15 +25,19 @@ def get_solver(method):
         raise AssertionError(f'{method} is not implemented!')
     return solver
 
+def simulate_lotka_volterra(method):
+    log_LV_params()
+    solver = get_solver(method)
+    prey_list, predator_list = solver._solve()
+    return prey_list, predator_list, solver.time_stamps
+
 def main(method, results_dir):
     '''
     Main function that solves LV system.
     '''
-    log_LV_params()
-    solver = get_solver(method)
-    prey_list, predator_list = solver._solve()
-    _save_population(prey_list, predator_list, solver.time_stamps, results_dir)
-    plot_population_over_time(prey_list, predator_list, solver.time_stamps, results_dir)
+    prey_list, predator_list, t = simulate_lotka_volterra(method)
+    _save_population(prey_list, predator_list, t, results_dir)
+    plot_population_over_time(prey_list, predator_list, t, results_dir)
 
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser()

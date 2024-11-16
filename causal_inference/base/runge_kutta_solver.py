@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import logging
-from causal_inference.base.lv_system import LotkaVolterra
+from causal_inference.base.lotka_volterra.lv_system import LotkaVolterra
 
 class RungeKuttaSolver(LotkaVolterra):
     '''

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # flake8: noqa
-from causal_inference.base.lv_system import LotkaVolterra
+from causal_inference.base.lotka_volterra.lv_system import LotkaVolterra
 from causal_inference.config import LV_PARAMS
 
 def test_lotka_volterra():
